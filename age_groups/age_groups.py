@@ -3,23 +3,21 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # load data
+## to use percentages use all columns
 cenPop = {
-    2010 : pd.read_csv('./2010.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2011 : pd.read_csv('./2011.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2012 : pd.read_csv('./2012.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2013 : pd.read_csv('./2013.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2014 : pd.read_csv('./2014.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2015 : pd.read_csv('./2015.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2016 : pd.read_csv('./2016.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2017 : pd.read_csv('./2017.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2018 : pd.read_csv('./2018.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float}),
-    2019 : pd.read_csv('./2019.csv', header=0, skiprows=[1], skip_blank_lines=True, dtype={'Age':str, 'Both sexes':float, 'Both sexes.1': float, 'Male':float, 'Male.1':float, 'Female':float, 'Female.1':float})
+    2010 : pd.read_csv('./2010.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2011 : pd.read_csv('./2011.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2012 : pd.read_csv('./2012.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2013 : pd.read_csv('./2013.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2014 : pd.read_csv('./2014.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2015 : pd.read_csv('./2015.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2016 : pd.read_csv('./2016.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2017 : pd.read_csv('./2017.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2018 : pd.read_csv('./2018.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float}),
+    2019 : pd.read_csv('./2019.csv', header=0, skiprows=[1], skip_blank_lines=True,  usecols=[0,1,3,5], names=['age', 'total', 'male', 'female'], dtype={'age':str, 'total':float, 'male':float, 'female':float})
     }
 
-
-main_data = {yr : (cenPop[yr].iloc[1:4, :]['Both sexes'].sum(), cenPop[yr].iloc[4:10, :]['Both sexes'].sum(), cenPop[yr].iloc[10:19, :]['Both sexes'].sum()) for yr in cenPop}
-
-
+main_data = {yr : (cenPop[yr].iloc[1:4, :]['total'].sum(), cenPop[yr].iloc[4:10, :]['total'].sum(), cenPop[yr].iloc[10:19, :]['total'].sum()) for yr in cenPop}
 
 
 # group1: 0 - 14yrs, group2: 15 - 44 yrs, group3: 44+ yrs
@@ -31,7 +29,7 @@ grp3 = cenPop[2010].iloc[10:19, :]
 gfr2010 = 64.0 / 1000
 
 # 2010 estimated birth rate
-birthRate2010 = (gfr2010 * grp2['Female'].sum()) / grp2['Both sexes'].sum()
+birthRate2010 = (gfr2010 * grp2['female'].sum()) / grp2['total'].sum()
 
 # death rates per 100,000 people
 deathRate_grp1= (588.0 + 24.0 + 11.5 + 14.0) / 100000
@@ -39,10 +37,22 @@ deathRate_grp2 = (45.5 + 83.8 + 99.7 + 117.3 + 147.2 + 202.4) / 100000
 deathRate_grp3 = (311.3 + 491.3 + 730.6 + 1032.2 + 1454.0 + 2246.1 + 3560.5 + 5944.6 + 13407.9) / 100000
 
 # probability of movement of group1 to group2, and from group2 - group3
-probGrp1_2 = 14 / grp1['Both sexes'].sum()
-probGrp2_3 = (44 - 15) / grp2['Both sexes'].sum()
+probGrp1_2 = 14 / grp1['total'].sum()
+probGrp2_3 = (44 - 15) / grp2['total'].sum()
 
-estimated_data = {2010: (grp1['Both sexes'].sum(), grp2['Both sexes'].sum(), grp3['Both sexes'].sum())} 
+# vectorized version
+matA = np.array([
+    [ 1 - (deathRate_grp1 + probGrp1_2), birthRate2010, 0],
+    [probGrp1_2, 1-(deathRate_grp2 + probGrp2_3), 0], 
+    [0, probGrp2_3, 1 - deathRate_grp3]
+     ])
+
+eigA = np.linalg.eig(matA)
+
+initPop = np.array([grp1['total'].sum(), grp2['total'].sum(), grp3['total'].sum()])
+
+# non-vectorized version
+estimated_data = {2010: (grp1['total'].sum(), grp2['total'].sum(), grp3['total'].sum())} 
 for i in cenPop:
     if i + 1 <= 2019:
         grp1 = estimated_data[i][0] + birthRate2010*estimated_data[i][1] - deathRate_grp1*estimated_data[i][0] - probGrp1_2*estimated_data[i][0]
